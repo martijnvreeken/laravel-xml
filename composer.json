@@ -13,13 +13,11 @@
         "convert-xml",
         "fetchleo"
     ],
-    "authors": [
-        {
-            "name": "Leo Smith",
-            "email": "leodoesmc1@gmail.com",
-            "role": "Maintainer"
-        }
-    ],
+    "authors": [{
+        "name": "Leo Smith",
+        "email": "leodoesmc1@gmail.com",
+        "role": "Maintainer"
+    }],
     "autoload": {
         "psr-0": {
             "FetchLeo\\LaravelXml\\": "src/"
@@ -33,6 +31,6 @@
         "illuminate/support": "^5.2",
         "illuminate/database": "^5.2",
         "orchestra/testbench": "~3.0",
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "^1.0"
     }
 }

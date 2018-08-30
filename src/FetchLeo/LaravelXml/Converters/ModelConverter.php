@@ -20,7 +20,9 @@ class ModelConverter implements Converter
      */
     public function convert($value, SimpleXMLElement $element) : SimpleXMLElement
     {
-        if (!($value instanceof Model)) throw new CantConvertValueException("Value is not a model.");
+        if (!($value instanceof Model)) {
+            throw new CantConvertValueException("Value is not a model.");
+        }
 
         return $this->prepareElement(
             collect($value->attributesToArray()),
@@ -38,7 +40,7 @@ class ModelConverter implements Converter
      */
     protected function prepareElement(Collection $data, SimpleXMLElement $element, $providedKey = null) : SimpleXMLElement
     {
-        foreach($data->toArray() as $key => $value) {
+        foreach ($data->toArray() as $key => $value) {
             if (is_array($value)) {
                 $this->prepareElement(
                     collect($value),
@@ -46,7 +48,7 @@ class ModelConverter implements Converter
                     str_singular(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key)
                 );
             } else {
-                $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key, $value);
+                $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key, htmlentities($value));
             }
         }
 

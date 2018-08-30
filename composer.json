@@ -1,8 +1,8 @@
 {
-    "name": "fetchleo/laravel-xml",
+    "name": "martijnvreeken/laravel-xml",
     "license": "MIT",
     "description": "Convert Eloquent models to XML, as well as normal objects.",
-    "homepage": "https://github.com/fetchleo/laravel-xml",
+    "homepage": "https://github.com/martijnvreeken/laravel-xml",
     "keywords": [
         "xml",
         "convert",
@@ -14,10 +14,16 @@
         "fetchleo"
     ],
     "authors": [{
-        "name": "Leo Smith",
-        "email": "leodoesmc1@gmail.com",
-        "role": "Maintainer"
-    }],
+            "name": "Leo Smith",
+            "email": "leodoesmc1@gmail.com",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Martijn Vreeken",
+            "email": "martijn@kapibara.media",
+            "role": "Maintainer"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "FetchLeo\\LaravelXml\\": "src/"

@@ -44,11 +44,11 @@ class ModelConverter implements Converter
             if (is_array($value)) {
                 $this->prepareElement(
                     collect($value),
-                    $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key),
-                    str_singular(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key)
+                    $element->addChild(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key),
+                    str_singular(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key)
                 );
             } else {
-                $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key, htmlentities($value));
+                $element->addChild(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key, htmlentities($value, ENT_XML1, 'UTF-8', true));
             }
         }
 

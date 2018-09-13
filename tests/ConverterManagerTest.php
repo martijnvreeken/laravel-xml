@@ -110,7 +110,7 @@ class ConverterManagerTest extends Orchestra\Testbench\TestCase
                     [
                         'test' => 'testing'
                     ]
-                ]
+                    ]
             ]
         ]);
 
@@ -119,6 +119,9 @@ class ConverterManagerTest extends Orchestra\Testbench\TestCase
         /* @var SimpleXMLElement $result */
         $result = Xml::convert($model);
         $this->assertCount(1, $result->xpath('complexStructure/test1'));
+        $xml = $result->asXml();
+        $this->assertContains('&amp;ü', $xml);
+        $this->assertNotContains('&uuml;', $xml);
     }
 
     /** @test */
@@ -171,7 +174,8 @@ class ConverterManagerTest extends Orchestra\Testbench\TestCase
     }
 }
 
-class TestObject {
+class TestObject
+{
     const TEST_CONSTANT = 'testing';
 
     private $privateProp = 'private';
@@ -182,14 +186,17 @@ class TestObject {
     ];
 }
 
-class TestModel extends Model {
+class TestModel extends Model
+{
     protected $attributes = [
         'test1' => 'value',
         'test2' => 5,
+        'encoded' => '&ü&ä&ë&ú&á&é'
     ];
 }
 
-class CustomConverter implements Converter {
+class CustomConverter implements Converter
+{
     /**
      * Convert a value to XML.
      *
@@ -217,7 +224,8 @@ class CustomConverter implements Converter {
     }
 }
 
-class CustomCollectionConverter implements Converter {
+class CustomCollectionConverter implements Converter
+{
     /**
      * Convert a value to XML.
      *
@@ -247,7 +255,8 @@ class CustomCollectionConverter implements Converter {
     }
 }
 
-class TestConverter implements Converter {
+class TestConverter implements Converter
+{
     /**
      * Convert a value to XML.
      *
@@ -277,7 +286,8 @@ class TestConverter implements Converter {
     }
 }
 
-class CustomObjectConverter implements Converter {
+class CustomObjectConverter implements Converter
+{
     /**
      * Convert a value to XML.
      *

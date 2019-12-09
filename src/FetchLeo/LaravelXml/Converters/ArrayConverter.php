@@ -2,10 +2,11 @@
 
 namespace FetchLeo\LaravelXml\Converters;
 
+use SimpleXMLElement;
+use Illuminate\Support\Str;
+use FetchLeo\LaravelXml\Facades\Xml;
 use FetchLeo\LaravelXml\Contracts\Converter;
 use FetchLeo\LaravelXml\Exceptions\CantConvertValueException;
-use SimpleXMLElement;
-use FetchLeo\LaravelXml\Facades\Xml;
 
 class ArrayConverter implements Converter
 {
@@ -44,7 +45,7 @@ class ArrayConverter implements Converter
                 $this->prepareElement(
                     collect($value)->toArray(),
                     $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key),
-                    str_singular(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key)
+                    Str::singular(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key)
                 );
             } else {
                 $element->addChild(is_numeric($key) ? ($providedKey ?: $this->intelligent_key($value)) : $key, htmlentities($value, ENT_XML1, 'UTF-8', true));

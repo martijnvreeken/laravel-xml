@@ -2,11 +2,12 @@
 
 namespace FetchLeo\LaravelXml\Converters;
 
+use SimpleXMLElement;
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use FetchLeo\LaravelXml\Contracts\Converter;
 use FetchLeo\LaravelXml\Exceptions\CantConvertValueException;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use SimpleXMLElement;
 
 class ModelConverter implements Converter
 {
@@ -45,7 +46,7 @@ class ModelConverter implements Converter
                 $this->prepareElement(
                     collect($value),
                     $element->addChild(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key),
-                    str_singular(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key)
+                    Str::singular(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key)
                 );
             } else {
                 $element->addChild(is_numeric($key) ? ($providedKey ? : $this->intelligent_key($value)) : $key, htmlentities($value, ENT_XML1, 'UTF-8', true));

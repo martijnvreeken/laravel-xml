@@ -3,19 +3,20 @@
 namespace FetchLeo\LaravelXml;
 
 use Exception;
-use FetchLeo\LaravelXml\Contracts\ConverterManager as ConverterManagerContract;
+use SimpleXMLElement;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Foundation\Application;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Container\Container;
+use FetchLeo\LaravelXml\Contracts\Xml as Contract;
 use FetchLeo\LaravelXml\Exceptions\CantConvertValueException;
 use FetchLeo\LaravelXml\Exceptions\NoConverterFoundException;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use SimpleXMLElement;
 
-use FetchLeo\LaravelXml\Contracts\Xml as Contract;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use FetchLeo\LaravelXml\Contracts\ConverterManager as ConverterManagerContract;
 
 class Xml implements Contract
 {
@@ -102,19 +103,19 @@ class Xml implements Contract
 
         // Step one: Try to find the CLASS or TYPE in $custom
         $class =  $custom->get(
-            is_object($value) ? get_class($value) : str_plural($type),
+            is_object($value) ? get_class($value) : Str::plural($type),
             function() use ($custom, $defaults, $value, $type) {
                 // Step two: try to find the TYPE in $custom
                 return $custom->get(
-                    str_plural($type),
+                    Str::plural($type),
                     function() use ($defaults, $value, $type) {
                         // Step three: Try to find the CLASS or TYPE in $defaults
                         return $defaults->get(
-                            is_object($value) ? get_class($value) : str_plural($type),
+                            is_object($value) ? get_class($value) : Str::plural($type),
                             function() use ($defaults, $value, $type) {
                                 // Step four: Try to find the TYPE in $defaults
                                 return $defaults->get(
-                                    str_plural($type),
+                                    Str::plural($type),
                                     function() {
                                         // If nothing works, throw an error.
                                         throw new NoConverterFoundException("Could not find an appropriate converter.");
